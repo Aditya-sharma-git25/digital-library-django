@@ -1,0 +1,30 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+<h2>Your Bookmarks</h2>
+
+<div class="row">
+
+{% for item in bookmarks %}
+
+<div class="col-md-3">
+<div class="card p-3 mb-3">
+
+<h5>{{ item.book.title }}</h5>
+<p>{{ item.book.author }}</p>
+
+<a href="{{ item.book.pdf.url }}" class="btn btn-success">
+Download
+</a>
+
+</div>
+</div>
+
+{% empty %}
+<p>No bookmarks yet</p>
+{% endfor %}
+
+</div>
+
+{% endblock %}
