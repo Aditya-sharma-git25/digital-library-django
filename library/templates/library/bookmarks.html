@@ -1,30 +1,165 @@
-{% extends "library/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Bookmarks</title>
 
-{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-<h2>Your Bookmarks</h2>
+<style>
 
-<div class="row">
+body{
+    font-family:'Inter',sans-serif;
+    background: linear-gradient(135deg,#eef2f3,#dfe9f3);
+    min-height:100vh;
+    padding-top:90px;
+}
 
-{% for item in bookmarks %}
+/* NAVBAR */
+.navbar{
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+}
 
-<div class="col-md-3">
-<div class="card p-3 mb-3">
+.navbar-brand, .nav-link{
+    color:white !important;
+}
 
-<h5>{{ item.book.title }}</h5>
-<p>{{ item.book.author }}</p>
+/* PAGE TITLE */
+.page-title{
+    text-align:center;
+    font-weight:700;
+    margin-bottom:40px;
+}
 
-<a href="{{ item.book.pdf.url }}" class="btn btn-success">
-Download
-</a>
+/* BOOK CARD */
+.bookmark-card{
+    border:none;
+    border-radius:20px;
+    padding:20px;
+    background:white;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+    height:100%;
+}
+
+.bookmark-card:hover{
+    transform:translateY(-5px);
+}
+
+/* TEXT */
+.book-title{
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.book-author{
+    color:#666;
+    margin-bottom:10px;
+}
+
+.book-desc{
+    font-size:14px;
+    color:#555;
+    margin-bottom:15px;
+}
+
+/* BUTTONS */
+.btn-group-custom{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+/* EMPTY STATE */
+.empty-box{
+    text-align:center;
+    margin-top:100px;
+    opacity:0.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+<div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">📚 e-Library Hub AI</a>
+
+    <div class="ms-auto">
+        <a class="nav-link d-inline me-3" href="{% url 'home' %}">Home</a>
+        <a class="nav-link d-inline me-3" href="{% url 'book_list' %}">Browse Books</a>
+        <a class="nav-link d-inline me-3" href="{% url 'bookmarks' %}">Bookmarks</a>
+        <a class="nav-link d-inline me-3" href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+</nav>
+
+<!-- CONTENT -->
+<div class="container">
+
+    <h1 class="page-title">📌 My Bookmarked Books</h1>
+
+    {% if bookmarks %}
+    <div class="row">
+
+        {% for bookmark in bookmarks %}
+        <div class="col-md-6 col-lg-4 mb-4">
+
+            <div class="bookmark-card">
+
+                <div class="book-title">
+                    {{ bookmark.book.title }}
+                </div>
+
+                <div class="book-author">
+                    <strong>Author:</strong> {{ bookmark.book.author }}
+                </div>
+
+                {% if bookmark.book.description %}
+                <div class="book-desc">
+                    {{ bookmark.book.description|truncatewords:20 }}
+                </div>
+                {% endif %}
+
+                <div class="btn-group-custom">
+
+                    {% if bookmark.book.pdf %}
+                    <a href="{{ bookmark.book.pdf.url }}" target="_blank"
+                       class="btn btn-primary btn-sm">
+                        📖 Read
+                    </a>
+                    {% endif %}
+
+                    <a href="{% url 'remove_bookmark' bookmark.book.id %}"
+                       class="btn btn-danger btn-sm">
+                        ❌ Remove
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+    <div class="empty-box">
+        <h3>No bookmarks yet buddy  😕  </h3>
+        <p>Go to Browse Books and start adding your favorite books</p>
+        <a href="{% url 'book_list' %}" class="btn btn-dark mt-3">Browse Books</a>
+    </div>
+    {% endif %}
 
 </div>
-</div>
 
-{% empty %}
-<p>No bookmarks yet</p>
-{% endfor %}
-
-</div>
-
-{% endblock %}
+</body>
+</html>

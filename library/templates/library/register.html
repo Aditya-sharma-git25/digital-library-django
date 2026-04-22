@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<title>Register</title>
+    <style>
+        body{
+            background: linear-gradient(135deg,#1e3a8a,#0f172a);
+            color:white;
+            font-family:Arial;
+            min-height:100vh;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        .form-box{
+            max-width:400px;
+            margin:auto;
+            margin-top:80px;
+            background:rgba(255,255,255,0.1);
+            padding:30px;
+            border-radius:15px;
+            backdrop-filter:blur(10px);
+        }
 
-<style>
-body{
-background: linear-gradient(135deg,#1e3a8a,#0f172a);
-color:white;
-font-family:Arial;
-}
-
-.form-box{
-max-width:400px;
-margin:auto;
-margin-top:80px;
-background:rgba(255,255,255,0.1);
-padding:30px;
-border-radius:15px;
-backdrop-filter:blur(10px);
-}
-</style>
-
+        .form-control{
+            margin-bottom:15px;
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="form-box">
+    <h2 class="text-center mb-4">Create Account</h2>
 
-<h2 class="text-center mb-4">Create Account</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
-<form method="POST" action="{% url 'register' %}">
+    <form method="POST">
     {% csrf_token %}
-    
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    
-    <button type="submit">Sign Up</button>
+    <input type="text" name="username">
+    <input type="email" name="email">
+    <input type="password" name="password">
+    <button type="submit">Register</button>
 </form>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-info">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
+
+    <div class="text-center mt-3">
+        Already have an account?
+        <a href="{% url 'login' %}" class="text-warning">Login</a>
+    </div>
 </div>
 
 </body>
