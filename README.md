@@ -1,78 +1,95 @@
-# 📚 e-Library Hub AI  
-Digital Library Archive Web Portal (Django Project)
+# 📚 E-Library Hub AI
+
+E-Library Hub AI is a modern Digital Library Archive Web Portal developed using Django and Python.  
+The platform provides students, researchers, and educators with centralized access to academic books and digital resources through an intelligent and user-friendly web application.
+
+The system includes secure authentication, PDF viewing/downloading, bookmarks, dashboards, analytics, and an AI-powered recommendation chatbot using Natural Language Processing (NLP) techniques.
 
 ---
 
-## 🚀 Project Overview
-e-Library Hub AI is a web-based digital library system that allows users to browse, read, and download books online. The platform provides a centralized archive of academic resources with a simple and user-friendly interface.
+# 🚀 Features
 
-The project is built using Django and aims to make learning resources easily accessible without relying on physical libraries.
+## 👤 User Authentication
+- User Registration
+- Secure Login & Logout
+- Django Authentication System
+- Session Management
 
----
+## 📖 Book Management
+- Browse Available Books
+- View Detailed Book Information
+- Upload Books (Admin)
+- Edit/Delete Books (Admin)
+- PDF File Support
 
-## 🎯 Objective
-- Provide easy access to digital books and resources  
-- Create a user-friendly online library system  
-- Enable students to read and download books anytime  
-- Lay the foundation for AI-based book recommendation  
+## 🔍 Advanced Search & Filtering
+- Search by Title
+- Search by Author
+- Search by Category
+- Search by Publication Year
 
----
+## ⭐ User Features
+- Bookmark/Favorite Books
+- Personalized Dashboard
+- Track Download Activity
+- Responsive UI for Mobile/Desktop
 
-## 🛠️ Tech Stack
-- **Backend:** Django (Python)  
-- **Frontend:** HTML, CSS, Bootstrap  
-- **Database:** SQLite  
-- **Version Control:** Git & GitHub  
+## 🤖 AI-Powered Recommendation Chatbot
+- NLP-based Recommendation System
+- TF-IDF Vectorization
+- Cosine Similarity Matching
+- Suggests Books Based on User Interests
+- Interactive Chatbot Interface
 
----
-
-## ✨ Features Implemented
-- 🔐 User Registration & Login System  
-- 🏠 Home Page Interface  
-- 📚 Browse Books Page  
-- 📄 PDF Viewing & Download  
-- ⚙️ Admin Panel for Uploading Books  
-- 🔄 Dynamic Content Rendering  
-
----
-
-## 💻 Current Functionality
-- Users can sign up and log in  
-- Admin can upload books via Django admin panel  
-- Books are displayed dynamically on the Browse page  
-- Users can read and download PDF files  
-
----
-
-## ⚠️ Challenges Faced
-- URL routing and linking issues between pages  
-- Django errors such as:
-  - `NoReverseMatch`
-  - Missing view functions  
-- Handling media files (PDF not loading issues)  
-- Debugging login and registration flow  
-- HTML structure issues affecting form submission  
-- Bookmark feature integration causing page errors  
+## 📊 Analytics
+- Download Counter
+- User Activity Tracking
+- Dashboard Statistics
 
 ---
 
-## 🚧 Features in Progress
-- ⭐ Bookmark/Favorites system  
-- 🔍 Advanced search and filtering  
-- 🤖 AI-based book recommendation chatbot  
-- 📊 User dashboard improvements  
+# 🛠️ Technology Stack
+
+| Technology | Usage |
+|------------|------|
+| Python 3.x | Core Programming Language |
+| Django | Backend Framework |
+| HTML5 | Frontend Structure |
+| CSS3 | Styling |
+| Bootstrap 5 | Responsive Design |
+| JavaScript | Frontend Interactivity |
+| SQLite | Development Database |
+| PostgreSQL | Production Database |
+| Git & GitHub | Version Control |
+| NLP / TF-IDF | AI Recommendation Engine |
 
 ---
 
-## 🔮 Future Scope
-- Personalized recommendations using AI (NLP-based)  
-- Improved UI/UX design  
-- Deployment on cloud (Render/Heroku)  
-- Mobile responsiveness enhancements  
-- Analytics and tracking features  
+# 🧠 AI Recommendation System
+
+The project includes a content-based recommendation chatbot that recommends books based on:
+- Genre
+- User Interests
+- Search Keywords
+- Book Categories
+
+The chatbot uses:
+- TF-IDF Vectorization
+- Cosine Similarity
+- NLP-based text matching
 
 ---
 
-##Project is Under Development
+# 📂 Project Structure
 
-## 📂 Project Structure
+```bash
+digital-library-django/
+│
+├── digital_library/
+├── library/
+├── templates/
+├── static/
+├── media/
+├── db.sqlite3
+├── manage.py
+└── requirements.txt
