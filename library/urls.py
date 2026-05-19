@@ -15,6 +15,12 @@ urlpatterns = [
 
     # Bookmarks
     path(
+        'bookmarks/',
+        views.bookmark_list,
+        name='bookmarks'
+    ),
+
+    path(
         'bookmark/add/<int:book_id>/',
         views.add_bookmark,
         name='add_bookmark'
@@ -34,5 +40,10 @@ urlpatterns = [
     ),
 
     # AI Chatbot
-    path('ai-chat/', views.ai_chat, name='ai_chat'),
+    path(
+        'ai-chat/',
+        views.ai_chat,
+        name='ai_chat'
+    ),
+
 ]
