@@ -15,4 +15,5 @@ urlpatterns = [
     path('register/', views.register, name='register'),
 
     path('ai-chat/', views.ai_chat, name='ai_chat'),
+    path('download/<int:book_id>/', views.download_book, name='download_book'),
 ]

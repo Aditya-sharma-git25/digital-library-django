@@ -3,97 +3,239 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Books</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body{
-            font-family:'Inter',sans-serif;
-            background: linear-gradient(135deg,#eef2f3,#dfe9f3);
+            background:linear-gradient(135deg,#eef2f3,#dfe9f3);
             min-height:100vh;
             padding-top:90px;
+            font-family:Arial, sans-serif;
         }
 
         .navbar{
-            background:rgba(0,0,0,0.75);
-            backdrop-filter: blur(8px);
+            background:#111827;
         }
 
-        .navbar-brand, .nav-link{
+        .navbar a{
             color:white !important;
+            margin-right:15px;
+            text-decoration:none;
         }
 
         .page-title{
             text-align:center;
-            margin-bottom:30px;
             font-weight:700;
-            color:#222;
+            margin-bottom:25px;
+        }
+
+        .search-box{
+            background:white;
+            padding:20px;
+            border-radius:20px;
+            margin-bottom:30px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.1);
         }
 
         .book-card{
-            border:none;
-            border-radius:20px;
             background:white;
-            box-shadow:0 8px 20px rgba(0,0,0,0.08);
-            padding:20px;
+            border-radius:20px;
+            padding:22px;
             height:100%;
-            transition:0.3s ease;
+            box-shadow:0 10px 25px rgba(0,0,0,0.1);
+            transition:0.3s;
         }
 
         .book-card:hover{
-            transform:translateY(-5px);
+            transform:translateY(-8px);
         }
 
         .book-title{
-            font-size:22px;
+            font-size:20px;
             font-weight:700;
-            margin-bottom:10px;
-            color:#222;
+            color:#111827;
         }
 
-        .book-author{
-            color:#666;
-            margin-bottom:10px;
+        .book-info{
+            color:#555;
+            font-size:14px;
+            margin-top:6px;
         }
 
         .book-desc{
             color:#555;
-            font-size:15px;
-            margin-bottom:15px;
+            margin-top:12px;
+            font-size:14px;
         }
 
-        .btn-group-custom{
+        .download-count{
+            display:inline-block;
+            background:#e0edff;
+            color:#1d4ed8;
+            padding:6px 12px;
+            border-radius:20px;
+            margin:12px 0;
+            font-size:13px;
+        }
+
+        .btn{
+            border-radius:10px;
+            margin:3px;
+        }
+
+        .chat-toggle{
+            position:fixed;
+            bottom:25px;
+            right:25px;
+            width:65px;
+            height:65px;
+            border-radius:50%;
+            background:linear-gradient(to right,#2563eb,#06b6d4);
             display:flex;
-            gap:10px;
-            flex-wrap:wrap;
+            align-items:center;
+            justify-content:center;
+            font-size:30px;
+            cursor:pointer;
+            z-index:9999;
+            box-shadow:0 10px 35px rgba(0,0,0,0.35);
+        }
+
+        .chatbot-container{
+            position:fixed;
+            bottom:100px;
+            right:25px;
+            width:380px;
+            height:600px;
+            background:#0f172a;
+            border-radius:25px;
+            display:none;
+            flex-direction:column;
+            z-index:9999;
+            overflow:hidden;
+            box-shadow:0 25px 70px rgba(0,0,0,0.45);
+        }
+
+        .chat-header{
+            background:linear-gradient(to right,#2563eb,#06b6d4);
+            color:white;
+            padding:18px;
+            display:flex;
+            justify-content:space-between;
             align-items:center;
         }
 
-        .bookmark-form{
-            display:inline;
+        .chat-header h5{
             margin:0;
+        }
+
+        .chat-header button{
+            background:none;
+            border:none;
+            color:white;
+            font-size:20px;
+        }
+
+        .chat-body{
+            flex:1;
+            padding:18px;
+            overflow-y:auto;
+            background:#111827;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .bot-message,
+        .user-message{
+            padding:13px 16px;
+            border-radius:18px;
+            margin-bottom:12px;
+            max-width:85%;
+            line-height:1.5;
+            font-size:14px;
+        }
+
+        .bot-message{
+            background:#1e293b;
+            color:white;
+            align-self:flex-start;
+        }
+
+        .user-message{
+            background:linear-gradient(to right,#2563eb,#06b6d4);
+            color:white;
+            align-self:flex-end;
+        }
+
+        .chat-footer{
+            display:flex;
+            padding:14px;
+            background:#0f172a;
+        }
+
+        .chat-footer input{
+            flex:1;
+            padding:13px;
+            border:none;
+            border-radius:12px;
+            background:#1e293b;
+            color:white;
+            outline:none;
+        }
+
+        .chat-footer button{
+            width:55px;
+            margin-left:10px;
+            border:none;
+            border-radius:12px;
+            background:#2563eb;
+            color:white;
+            font-size:18px;
+        }
+
+        .ai-book-card{
+            background:#0f172a;
+            border:1px solid #334155;
+            padding:12px;
+            border-radius:14px;
+            margin-top:10px;
+        }
+
+        .ai-book-card a{
+            display:inline-block;
+            margin-top:8px;
+            padding:8px 12px;
+            background:#2563eb;
+            color:white;
+            border-radius:8px;
+            text-decoration:none;
+            font-size:13px;
+        }
+
+        @media(max-width:500px){
+            .chatbot-container{
+                width:94%;
+                right:3%;
+                height:75vh;
+            }
         }
     </style>
 </head>
+
 <body>
 
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">📚 e-Library Hub AI</a>
+        <a href="{% url 'home' %}" class="navbar-brand">📚 e-Library Hub AI</a>
 
         <div class="ms-auto">
-            <a class="nav-link d-inline me-3" href="{% url 'home' %}">Home</a>
-            <a class="nav-link d-inline me-3" href="{% url 'book_list' %}">Browse Books</a>
-
-            {% if user.is_authenticated %}
-                <a class="nav-link d-inline me-3" href="{% url 'bookmarks' %}">Bookmarks</a>
-                <a class="nav-link d-inline me-3" href="{% url 'logout' %}">Logout</a>
-            {% else %}
-                <a class="nav-link d-inline me-3" href="{% url 'login' %}">Login</a>
-                <a class="nav-link d-inline me-3" href="{% url 'register' %}">Sign Up</a>
-            {% endif %}
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'book_list' %}">Browse Books</a>
+            <a href="{% url 'bookmarks' %}">Bookmarks</a>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'logout' %}">Logout</a>
         </div>
     </div>
 </nav>
@@ -101,45 +243,183 @@
 <div class="container">
     <h1 class="page-title">Browse Books</h1>
 
-    <div class="row">
+    <div class="search-box">
+        <form method="GET">
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search title, author, description">
+                </div>
+
+                <div class="col-md-3">
+                    <input type="text" name="category" value="{{ category }}" class="form-control" placeholder="Category">
+                </div>
+
+                <div class="col-md-2">
+                    <input type="text" name="year" value="{{ year }}" class="form-control" placeholder="Year">
+                </div>
+
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-dark">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row g-4">
         {% for book in books %}
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-6 col-lg-4">
             <div class="book-card">
                 <div class="book-title">{{ book.title }}</div>
-                <div class="book-author"><strong>Author:</strong> {{ book.author }}</div>
+
+                <div class="book-info"><b>Author:</b> {{ book.author }}</div>
+                <div class="book-info"><b>Category:</b> {{ book.category }}</div>
+                <div class="book-info"><b>Year:</b> {{ book.year }}</div>
+
+                <div class="download-count">
+                    📥 Downloads: {{ book.downloads }}
+                </div>
 
                 {% if book.description %}
-                    <div class="book-desc">{{ book.description|truncatewords:25 }}</div>
+                <div class="book-desc">
+                    {{ book.description|truncatewords:25 }}
+                </div>
                 {% endif %}
 
-                <div class="btn-group-custom">
+                <div class="mt-3">
                     {% if book.pdf %}
-                        <a href="{{ book.pdf.url }}" target="_blank" class="btn btn-primary btn-sm">Read</a>
+                    <a href="{{ book.pdf.url }}" target="_blank" class="btn btn-primary btn-sm">Read</a>
+                    <a href="{% url 'download_book' book.id %}" class="btn btn-success btn-sm">Download</a>
                     {% endif %}
 
-                    {% if user.is_authenticated %}
-                        {% if book.id in bookmarked_books %}
-                            <form method="POST" action="{% url 'remove_bookmark' book.id %}" class="bookmark-form">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger btn-sm">Remove Bookmark</button>
-                            </form>
-                        {% else %}
-                            <form method="POST" action="{% url 'add_bookmark' book.id %}" class="bookmark-form">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-warning btn-sm">Bookmark</button>
-                            </form>
-                        {% endif %}
+                    {% if book.id in bookmarked_books %}
+                    <form method="POST" action="{% url 'remove_bookmark' book.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="btn btn-danger btn-sm">Remove Bookmark</button>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="{% url 'add_bookmark' book.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="btn btn-warning btn-sm">Bookmark</button>
+                    </form>
                     {% endif %}
                 </div>
             </div>
         </div>
         {% empty %}
-        <div class="text-center">
-            <p>No books available.</p>
-        </div>
+        <p class="text-center">No books found.</p>
         {% endfor %}
     </div>
 </div>
 
+<div class="chat-toggle" onclick="toggleChat()">🤖</div>
+
+<div class="chatbot-container" id="chatbot">
+    <div class="chat-header">
+        <div>
+            <h5>AI Library Assistant</h5>
+            <small>Online • Book Recommender</small>
+        </div>
+        <button onclick="toggleChat()">✖</button>
+    </div>
+
+    <div class="chat-body" id="chat-body">
+        <div class="bot-message">
+            👋 Hello! Tell me what kind of book you want. Example: Python, AI, history, novel, machine learning.
+        </div>
+    </div>
+
+    <div class="chat-footer">
+        <input type="text" id="chat-input" placeholder="Ask for book suggestions..." onkeypress="handleKey(event)">
+        <button onclick="sendMessage()">➤</button>
+    </div>
+</div>
+
+<script>
+function toggleChat(){
+    const chatbot = document.getElementById("chatbot");
+    chatbot.style.display = chatbot.style.display === "flex" ? "none" : "flex";
+}
+
+function handleKey(event){
+    if(event.key === "Enter"){
+        sendMessage();
+    }
+}
+
+async function sendMessage(){
+    const input = document.getElementById("chat-input");
+    const message = input.value.trim();
+
+    if(!message) return;
+
+    const chatBody = document.getElementById("chat-body");
+
+    const userDiv = document.createElement("div");
+    userDiv.className = "user-message";
+    userDiv.innerText = message;
+    chatBody.appendChild(userDiv);
+
+    input.value = "";
+
+    const typing = document.createElement("div");
+    typing.className = "bot-message";
+    typing.id = "typing";
+    typing.innerText = "🤖 AI is typing...";
+    chatBody.appendChild(typing);
+
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    try{
+        const response = await fetch("{% url 'ai_chat' %}", {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                message:message
+            })
+        });
+
+        const data = await response.json();
+
+        document.getElementById("typing").remove();
+
+        const botDiv = document.createElement("div");
+        botDiv.className = "bot-message";
+
+        let html = `<div>${data.reply}</div>`;
+
+        if(data.books && data.books.length > 0){
+            data.books.forEach(book => {
+                html += `
+                    <div class="ai-book-card">
+                        <strong>📚 ${book.title}</strong><br>
+                        <small>${book.author}</small><br>
+                        ${
+                            book.pdf
+                            ? `<a href="${book.pdf}" target="_blank">Read Book</a>`
+                            : `<small>PDF not available</small>`
+                        }
+                    </div>
+                `;
+            });
+        }
+
+        botDiv.innerHTML = html;
+        chatBody.appendChild(botDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+    }catch(error){
+        document.getElementById("typing").remove();
+
+        const errorDiv = document.createElement("div");
+        errorDiv.className = "bot-message";
+        errorDiv.innerText = "⚠ AI assistant connection failed.";
+        chatBody.appendChild(errorDiv);
+    }
+}
+</script>
+
 </body>
 </html>
+

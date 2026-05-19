@@ -147,6 +147,12 @@ body{
                 <div class="stat-number" id="savedBooks">0</div>
             </div>
         </div>
+        <div class="col-md-4">
+    <div class="card-box">
+        <h5>Total Downloads</h5>
+        <div class="stat-number" id="totalDownloads">0</div>
+    </div>
+</div>
 
         <div class="col-md-4">
             <div class="card-box">
@@ -156,6 +162,18 @@ body{
         </div>
 
     </div>
+    <div class="container mt-5">
+    <div class="card-box">
+        <h4 class="mb-3">Top Downloaded Books</h4>
+        {% if top_books %}
+            {% for book in top_books %}
+                <p>{{ book.title }} — {{ book.downloads }} downloads</p>
+            {% endfor %}
+        {% else %}
+            <p>No downloads yet.</p>
+        {% endif %}
+    </div>
+</div>
 
     <!-- QUICK ACTIONS -->
     <div class="text-center quick-btn">
@@ -198,6 +216,7 @@ function animateValue(id, start, end, duration) {
 /* 🔥 Replace with real values from Django */
 animateValue("totalBooks", 0, {{ total_books|default:0 }}, 1000);
 animateValue("savedBooks", 0, {{ saved_books|default:0 }}, 1000);
+animateValue("totalDownloads", 0, {{ total_downloads|default:0 }}, 1000);
 </script>
 
 </body>
