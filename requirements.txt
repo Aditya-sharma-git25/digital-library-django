@@ -1,7 +1,10 @@
-asgiref==3.11.1
-Django==6.0.2
-pillow==12.1.1
-psycopg2==2.9.11
-sqlparse==0.5.5
-tzdata==2025.3
-Django==5.2.11
+Django==5.2.5
+Pillow==11.3.0
+psycopg2-binary==2.9.10
+scikit-learn==1.7.1
+numpy==2.3.2
+scipy==1.16.1
+joblib==1.5.1
+threadpoolctl==3.6.0
+sqlparse==0.5.3
+tzdata==2025.2
